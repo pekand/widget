@@ -6,11 +6,11 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>timer.ico</ApplicationIcon>
+    <ApplicationIcon>widget.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="timer.ico" />
+    <Content Include="widget.ico" />
   </ItemGroup>
 
 </Project>

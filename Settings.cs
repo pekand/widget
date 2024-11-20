@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Timer
+namespace Widget
 {
     public class Settings
     {
@@ -32,7 +32,7 @@ namespace Timer
 
         public Settings(int id)
         {
-            settingsFileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Timer");
+            settingsFileDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Widget");
             settingsFilePath = Path.Combine(settingsFileDirectory, "settings."+id.ToString()+".xml");
         }
 

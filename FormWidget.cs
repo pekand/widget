@@ -4,25 +4,25 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
-namespace Timer
+namespace Widget
 {
 
-    public partial class FormTimer : Form
+    public partial class FormWidget : Form
     {
-        string text = "0";
-        long tick = 0;
-        long delta = 0;
+        public string text = "0";
+        public long tick = 0;
+        public long delta = 0;
 
-        string type = "sec";
+        public string type = "sec";
 
-        bool paused = false;
+        public bool paused = false;
 
-        public FormTimer()
+        public FormWidget()
         {
             InitializeComponent();
         }
 
-        private void FormTimer_Load(object sender, EventArgs e)
+        private void FormWidget_Load(object sender, EventArgs e)
         {
             this.DoubleBuffered = true;
             this.Opacity = 0.8;
@@ -57,7 +57,7 @@ namespace Timer
             this.Refresh();
         }
 
-        private void FormTimer_Paint(object sender, PaintEventArgs e)
+        private void FormWidget_Paint(object sender, PaintEventArgs e)
         {
 
         }
@@ -107,6 +107,16 @@ namespace Timer
                 ((int)tick / 60 % 60).ToString("00");
             }
 
+            if (this.type == "clock")
+            {
+                this.text = DateTime.Now.ToString("H:mm:ss");
+            }
+
+            if (this.type == "clockshort")
+            {
+                this.text = DateTime.Now.ToString("H:mm");
+            }
+
             if (this.type == "date")
             {
                 this.text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -144,7 +154,7 @@ namespace Timer
             this.Region = new System.Drawing.Region(path);
         }
 
-        private void timerTimer_Tick(object sender, EventArgs e)
+        private void widgetWidget_Tick(object sender, EventArgs e)
         {
             this.Refresh();
         }
@@ -157,7 +167,7 @@ namespace Timer
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
-        private void timerTimer_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void widgetWidget_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -166,17 +176,18 @@ namespace Timer
             }
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Program.RemoveWidget(this);
             this.Close();
         }
 
-        private void FormTimer_Move(object sender, EventArgs e)
+        private void FormWidget_Move(object sender, EventArgs e)
         {
 
         }
 
-        private void FormTimer_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormWidget_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.settings.paused = this.paused;
             Program.settings.type = this.type;
@@ -246,5 +257,21 @@ namespace Timer
         {
             this.type = "dayofweek";
         }
+
+        private void clockToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.type = "clock";
+        }
+
+        private void clockShortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.type = "clockshort";
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Program.AddNewWidget();
+        }
+
     }
 }
